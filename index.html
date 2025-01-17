@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>From Types to Classes - Better Pet Organization</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #2c3e50;
+        margin-top: 2rem;
+      }
+
+      pre {
+        background: #f8f9fa;
+        border-radius: 4px;
+        padding: 1rem;
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+        width: calc(100% - 2rem);
+      }
+
+      .keyword {
+        color: #0033b3;
+      }
+      .string {
+        color: #067d17;
+      }
+      .comment {
+        color: #8c8c8c;
+      }
+      .number {
+        color: #1750eb;
+      }
+      .type {
+        color: #000080;
+      }
+
+      .tip {
+        background: #e3f2fd;
+        padding: 1rem;
+        border-radius: 4px;
+        margin: 1rem 0;
+      }
+
+      .warning {
+        background: #fff3e0;
+        padding: 1rem;
+        border-radius: 4px;
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Making Our Pets More Special! 🐾</h1>
+
+    <p>Our pet shop system works, but something feels a bit... clunky. Look at our makeSound() method:</p>
+
+    <pre><span class="keyword">public</span> String makeSound() {
+    <span class="keyword">if</span> (type.equals(<span class="string">"dog"</span>)) {
+        <span class="keyword">return</span> mood.equals(<span class="string">"happy"</span>) ? <span class="string">"Woof! Woof!"</span> : <span class="string">"Woof!"</span>;
+    } <span class="keyword">else if</span> (type.equals(<span class="string">"cat"</span>)) {
+        <span class="keyword">return</span> mood.equals(<span class="string">"happy"</span>) ? <span class="string">"Purrrr!"</span> : <span class="string">"Meow!"</span>;
+    }
+    <span class="keyword">return</span> <span class="string">"*mysterious pet noises*"</span>;
+}</pre>
+
+    <p>Every time we want to add a new type of pet or new behavior, we have to:</p>
+    <ul>
+      <li>Add more if/else statements</li>
+      <li>Remember exact string values ("dog", "cat")</li>
+      <li>Mix different pet behaviors in one place</li>
+    </ul>
+
+    <div class="warning">
+      <strong>Think About It:</strong> What happens if we accidentally type "Dog" instead of "dog"? Or what if we want
+      to add special methods just for dogs? 🤔
+    </div>
+
+    <h2>A Better Way: Making Each Pet Type Special!</h2>
+
+    <p>
+      In Java, we can create specific classes for each type of pet. Instead of using a String to tell pets apart, we'll
+      give each type its own special class!
+    </p>
+
+    <h3>Step 1: Creating Our First Pet Type</h3>
+
+    <p>Let's start with dogs. Create a new file called Dog.java and add this code:</p>
+
+    <pre><span class="keyword">public class</span> Dog <span class="keyword">extends</span> Pet {
+    <span class="keyword">public</span> Dog(<span class="type">String</span> name, <span class="type">int</span> age) {
+        <span class="keyword">super</span>(name, <span class="string">"dog"</span>, age);
+    }
+}</pre>
+
+    <div class="tip">
+      <strong>New Keywords!</strong>
+      <ul>
+        <li><code>extends</code> means "Dog is a type of Pet"</li>
+        <li><code>super</code> calls the Pet constructor</li>
+      </ul>
+    </div>
+
+    <h3>Step 2: Making Dogs Special</h3>
+
+    <p>Now we can give dogs their own special way of making sounds:</p>
+
+    <pre><span class="keyword">public class</span> Dog <span class="keyword">extends</span> Pet {
+    <span class="keyword">public</span> Dog(<span class="type">String</span> name, <span class="type">int</span> age) {
+        <span class="keyword">super</span>(name, <span class="string">"dog"</span>, age);
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="keyword">public</span> String makeSound() {
+        <span class="keyword">if</span> (getMood().equals(<span class="string">"happy"</span>)) {
+            <span class="keyword">return</span> <span class="string">"Woof! Woof!"</span>;
+        }
+        <span class="keyword">return</span> <span class="string">"Woof!"</span>;
+    }
+}</pre>
+
+    <div class="tip">
+      <strong>Notice:</strong> We marked the method with @Override to tell Java we're replacing the Pet class version.
+      This helps catch spelling mistakes!
+    </div>
+
+    <h3>Let's Try It Out!</h3>
+
+    <p>Update your main method to create a Dog instead of a generic Pet:</p>
+
+    <pre><span class="keyword">public static void</span> main(<span class="type">String</span>[] args) {
+    Dog buddy = <span class="keyword">new</span> Dog(<span class="string">"Buddy"</span>, <span class="number">3</span>);
+    System.out.println(buddy.getName() + <span class="string">" says: "</span> + buddy.makeSound());
+    
+    buddy.play();  <span class="comment">// Makes Buddy happy</span>
+    System.out.println(buddy.getName() + <span class="string">" says: "</span> + buddy.makeSound());
+}</pre>
+
+    <h2>Your Turn - Practice Time! 💪</h2>
+
+    <p>Now it's your turn to create a special class for cats:</p>
+
+    <ol>
+      <li>Create a new file called Cat.java</li>
+      <li>Make it extend Pet (like we did with Dog)</li>
+      <li>Create a constructor that takes name and age</li>
+      <li>Override makeSound() to return "Meow!" (or "Purrrr!" when happy)</li>
+    </ol>
+
+    <div class="tip">
+      <strong>Hint:</strong> Look at the Dog class as an example. Your Cat class will be very similar, just with
+      different sounds!
+    </div>
+
+    <p>Try creating both a Dog and a Cat in your main method and make them interact!</p>
+
+    <h2>What We've Learned 🎓</h2>
+
+    <ul>
+      <li>Why String-based types are limiting</li>
+      <li>How to create specific pet classes</li>
+      <li>What extends means</li>
+      <li>How to override methods</li>
+      <li>Using the @Override annotation</li>
+    </ul>
+
+    <p>In our next section, we'll learn how to add special methods just for dogs... like fetch! 🎾</p>
+
+    <h1>Adding Special Dog Behaviors! 🦮</h1>
+
+    <p>
+      Now that we have specific classes for our pets, we can add behaviors that only make sense for certain types. After
+      all, you wouldn't expect a fish to play fetch, right? 🎾
+    </p>
+
+    <h2>Teaching Dogs New Tricks</h2>
+
+    <p>Let's add some dog-specific methods to our Dog class:</p>
+
+    <pre><span class="keyword">public class</span> Dog <span class="keyword">extends</span> Pet {
+    <span class="keyword">private boolean</span> knowsFetch = <span class="keyword">false</span>;
+
+    <span class="comment">// Constructor stays the same</span>
+    
+    <span class="keyword">public void</span> trainFetch() {
+        knowsFetch = <span class="keyword">true</span>;
+        setMood(<span class="string">"happy"</span>);
+        System.out.println(getName() + <span class="string">" learned how to fetch!"</span>);
+    }
+    
+    <span class="keyword">public void</span> fetch() {
+        <span class="keyword">if</span> (knowsFetch) {
+            System.out.println(getName() + <span class="string">" chases the ball and brings it back!"</span>);
+            setMood(<span class="string">"happy"</span>);
+        } <span class="keyword">else</span> {
+            System.out.println(getName() + <span class="string">" looks confused... Maybe some training is needed!"</span>);
+        }
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="keyword">public void</span> play() {
+        <span class="keyword">super</span>.play();  <span class="comment">// Do the normal pet play first</span>
+        
+        <span class="keyword">if</span> (knowsFetch) {
+            System.out.println(getName() + <span class="string">" looks at you expectantly, ready to fetch!"</span>);
+        }
+    }
+}</pre>
+
+    <div class="tip">
+      <strong>Notice:</strong> We've also overridden the play() method, but we still want the original Pet behavior too.
+      That's what <code>super.play()</code> does!
+    </div>
+
+    <h2>Let's Try Our New Dog Features!</h2>
+
+    <p>Update your main method to test these new behaviors:</p>
+
+    <pre>Dog buddy = <span class="keyword">new</span> Dog(<span class="string">"Buddy"</span>, <span class="number">3</span>);
+
+<span class="comment">// Try fetching before training</span>
+buddy.fetch();  <span class="comment">// Should look confused</span>
+
+<span class="comment">// Train Buddy</span>
+buddy.trainFetch();
+
+<span class="comment">// Now try fetching again</span>
+buddy.fetch();  <span class="comment">// Should fetch successfully!</span>
+
+<span class="comment">// See how play behavior changed</span>
+buddy.play();</pre>
+
+    <h2>Your Turn - Cat Behaviors! 🐱</h2>
+
+    <p>Now it's your turn to make cats more realistic. Add these features to your Cat class:</p>
+
+    <ol>
+      <li>Add a new field called <code>scratchingPost</code> (boolean)</li>
+      <li>
+        Add a method called <code>giveScratchingPost()</code> that:
+        <ul>
+          <li>Sets scratchingPost to true</li>
+          <li>Makes the cat happy</li>
+          <li>Prints a message</li>
+        </ul>
+      </li>
+      <li>
+        Override the play() method to:
+        <ul>
+          <li>Call the normal pet play behavior</li>
+          <li>If there's a scratching post, add a message about using it</li>
+          <li>If no scratching post, add a message about the furniture being in danger!</li>
+        </ul>
+      </li>
+    </ol>
+
+    <div class="warning">
+      <strong>Challenge:</strong> Can you think of another cat-specific behavior to add? Maybe something involving boxes
+      or laser pointers? 📦
+    </div>
+
+    <h2>Testing Both Types</h2>
+
+    <p>Now create both types of pets and see how they behave differently:</p>
+
+    <pre>Dog buddy = <span class="keyword">new</span> Dog(<span class="string">"Buddy"</span>, <span class="number">3</span>);
+Cat whiskers = <span class="keyword">new</span> Cat(<span class="string">"Whiskers"</span>, <span class="number">5</span>);
+
+<span class="comment">// Try general pet behaviors</span>
+buddy.play();
+whiskers.play();
+
+<span class="comment">// Try specific behaviors</span>
+buddy.trainFetch();
+buddy.fetch();
+whiskers.giveScratchingPost();
+
+<span class="comment">// Try play again to see different behaviors</span>
+buddy.play();
+whiskers.play();</pre>
+
+    <h2>What We've Learned 🎓</h2>
+
+    <ul>
+      <li>How to add type-specific fields and methods</li>
+      <li>Using super to call parent class methods</li>
+      <li>Overriding methods to add special behaviors</li>
+      <li>Making our pets more realistic!</li>
+    </ul>
+
+    <p>Coming up next: We'll see how to use both types of pets together in our pet shop system! 🏪</p>
+
+    <h1>Mixing Different Pet Types! 🐱🐶</h1>
+
+    <p>
+      Our pets now have their own special behaviors - that's great! But in a real pet shop, we need to work with
+      different types of pets together. Let's see how Java helps us do this!
+    </p>
+
+    <h2>The Magic of Polymorphism ✨</h2>
+
+    <p>Here's something cool - since both Dog and Cat are types of Pet, we can store them in Pet variables:</p>
+
+    <pre><span class="comment">// These all work!</span>
+Pet pet1 = <span class="keyword">new</span> Dog(<span class="string">"Buddy"</span>, <span class="number">3</span>);
+Pet pet2 = <span class="keyword">new</span> Cat(<span class="string">"Whiskers"</span>, <span class="number">5</span>);
+
+<span class="comment">// They still make their own special sounds</span>
+System.out.println(pet1.makeSound());  <span class="comment">// Woof!</span>
+System.out.println(pet2.makeSound());  <span class="comment">// Meow!</span></pre>
+
+    <div class="tip">
+      <strong>This is Polymorphism:</strong> Even though we're using Pet variables, each pet still behaves according to
+      its actual type (Dog or Cat)! 🎭
+    </div>
+
+    <h2>But Wait... Where Did Our Special Methods Go? 🤔</h2>
+
+    <p>Try this code:</p>
+
+    <pre>Pet pet = <span class="keyword">new</span> Dog(<span class="string">"Buddy"</span>, <span class="number">3</span>);
+pet.fetch();  <span class="comment">// This won't work! ❌</span></pre>
+
+    <div class="warning">
+      <strong>Why Doesn't It Work?</strong> When we use a Pet variable, Java only knows about methods that exist in the
+      Pet class. fetch() is a Dog-specific method!
+    </div>
+
+    <h2>Type Checking and Casting</h2>
+
+    <p>If we want to use special methods, we need to tell Java what type of pet we really have:</p>
+
+    <pre><span class="comment">// First, check what type of pet it is</span>
+<span class="keyword">if</span> (pet <span class="keyword">instanceof</span> Dog) {
+    <span class="comment">// Convert (cast) to a Dog to use Dog methods</span>
+    Dog dog = (Dog) pet;
+    dog.fetch();
+}
+
+<span class="keyword">if</span> (pet <span class="keyword">instanceof</span> Cat) {
+    Cat cat = (Cat) pet;
+    cat.giveScratchingPost();
+}</pre>
+
+    <h2>Making a Simple Pet Display System</h2>
+
+    <p>Let's create a method that can handle any type of pet:</p>
+
+    <pre><span class="keyword">public static void</span> displayPet(Pet pet) {
+    System.out.println(<span class="string">"Meet "</span> + pet.getName() + <span class="string">"!"</span>);
+    System.out.println(<span class="string">"Age: "</span> + pet.getAge());
+    System.out.println(<span class="string">"They say: "</span> + pet.makeSound());
+    
+    <span class="comment">// Check for special abilities</span>
+    <span class="keyword">if</span> (pet <span class="keyword">instanceof</span> Dog) {
+        Dog dog = (Dog) pet;
+        System.out.println(<span class="string">"Special ability: Can learn to fetch!"</span>);
+    } <span class="keyword">else if</span> (pet <span class="keyword">instanceof</span> Cat) {
+        Cat cat = (Cat) pet;
+        System.out.println(<span class="string">"Special ability: Uses scratching post!"</span>);
+    }
+    System.out.println();  <span class="comment">// Empty line for spacing</span>
+}</pre>
+
+    <h2>Your Turn - Pet Shop Display! 💪</h2>
+
+    <p>Create a program that shows off our pet shop pets:</p>
+
+    <ol>
+      <li>Create at least one Dog and one Cat</li>
+      <li>Store them in Pet variables</li>
+      <li>Use the displayPet method to show their info</li>
+      <li>Try making them all play (hint: play() exists in Pet class!)</li>
+      <li>Add some type-specific interactions using instanceof</li>
+    </ol>
+
+    <p>Here's a starter template:</p>
+
+    <pre><span class="keyword">public static void</span> main(<span class="type">String</span>[] args) {
+    <span class="comment">// Create some pets</span>
+    Pet pet1 = <span class="keyword">new</span> Dog(<span class="string">"Buddy"</span>, <span class="number">3</span>);
+    Pet pet2 = <span class="keyword">new</span> Cat(<span class="string">"Whiskers"</span>, <span class="number">5</span>);
+    
+    <span class="comment">// Display them</span>
+    displayPet(pet1);
+    displayPet(pet2);
+    
+    <span class="comment">// TODO: Make them play</span>
+    
+    <span class="comment">// TODO: Add some type-specific interactions</span>
+}</pre>
+
+    <div class="tip">
+      <strong>Extra Challenge:</strong> Can you create an array of Pet objects and loop through them? Try storing both
+      dogs and cats in the same array!
+    </div>
+
+    <h2>Final Challenge! 🌟</h2>
+
+    <p>Create a PetShow class that:</p>
+    <ol>
+      <li>Has an array or list of Pet objects</li>
+      <li>Can add new pets of any type</li>
+      <li>
+        Has a performShow() method where:
+        <ul>
+          <li>All pets make their sounds</li>
+          <li>Dogs fetch (if trained)</li>
+          <li>Cats use their scratching posts (if they have one)</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>What We've Learned 🎓</h2>
+
+    <ul>
+      <li>How to use Pet variables for any pet type</li>
+      <li>What polymorphism means in practice</li>
+      <li>How to check pet types with instanceof</li>
+      <li>Using casting to access special methods</li>
+      <li>Working with different pets together</li>
+    </ul>
+
+    <p>
+      Next time, we'll learn how to organize our code better by creating a proper class hierarchy and removing the
+      "type" field entirely! 📚
+    </p>
+  </body>
+</html>
